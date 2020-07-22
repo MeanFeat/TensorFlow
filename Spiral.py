@@ -44,7 +44,7 @@ start = time.time()
 def Go():
     tb_callback, log_dir = tools.GetTensorboardCallback('Spiral-')
     model.fit(X,y, epochs=2, batch_size =len(X), verbose=1, callbacks=[tb_callback])
-    tools.WriteWeightsToFile(model, "weights_test.txt")
+    tools.WriteJson(model, "weights.json")
     tools.LaunchTensorboard(log_dir)
 
 def GoAnim():
