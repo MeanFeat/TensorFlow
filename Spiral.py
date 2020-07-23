@@ -43,8 +43,9 @@ model.compile(optimizer=tf.keras.optimizers.Adam(0.015),loss=tf.keras.losses.MSE
 start = time.time()
 def Go():
     tb_callback, log_dir = tools.GetTensorboardCallback('Spiral-')
-    model.fit(X,y, epochs=2, batch_size =len(X), verbose=1, callbacks=[tb_callback])
-    tools.WriteJson(model, "weights.json")
+    model.fit(X,y, epochs=2000, batch_size =len(X), verbose=1, callbacks=[tb_callback])
+    results = model.evaluate(X, y)
+    tools.WriteJson(model, "weights", results = results)
     tools.LaunchTensorboard(log_dir)
 
 def GoAnim():
