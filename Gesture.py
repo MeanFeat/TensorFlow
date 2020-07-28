@@ -24,29 +24,6 @@ def GetData():
 def BuildData():
     data = tools.read_csv('data/GestureDeltasTrain.csv').values
     labels = tools.read_csv('data/GestureLabelsTrain.csv').values
-    if False:
-        correctVals = []
-        for l in range(len(labels)):
-            if labels[l][0] == 1:
-                correctVals.append(l)
-        shiftData = []
-        shiftLabels = []
-        for c in correctVals:
-            shiftData.append(data[c])
-            shiftLabels.append(labels[c])
-        count = 0
-        for s in shiftData:
-            newSample = s
-            for n in range(25):
-                newSample = np.concatenate((newSample[2:],newSample[:2]), axis=0)
-                if count == 5:
-                    shiftData.append(newSample)            
-                    shiftLabels.append(1)
-                    count = 0
-                count += 1
-        np.savetxt('data/ShiftDeltas.csv', shiftData, delimiter=',')
-        np.savetxt('data/ShiftLabels.csv', shiftData, delimiter=',')
-
     data = np.concatenate([data,tools.read_csv('data/CorrectionsDeltas00.csv').values], axis=0)
     labels = np.concatenate([labels, tools.read_csv('data/CorrectionsLabels00.csv').values], axis=0)
     data = np.concatenate([data,tools.read_csv('data/CorrectionsDeltas01.csv').values], axis=0)

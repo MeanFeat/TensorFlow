@@ -48,6 +48,7 @@ def WriteJson(m, filePrefix, results = -1.0, timeInFileName = False):
         isWeight = not isWeight
 
     with open(file, "w") as write_file:
+        write_file.write('[')
         for w in range(len(weights)):
             act = m.layers[w].activation._tf_api_names[0].split('.')
             layer = {
@@ -59,3 +60,7 @@ def WriteJson(m, filePrefix, results = -1.0, timeInFileName = False):
                 "biasVals" : biases[w]
             }
             json.dump(layer, write_file, indent = 4,  cls=NumpyArrayEncoder)
+            if(w != len(weights)):
+                write_file.write(',')
+        write_file.write(']')
+    print("Exported to file: ", file)
