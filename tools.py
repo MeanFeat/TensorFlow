@@ -60,7 +60,7 @@ def WriteJson(m, filePrefix, results = -1.0, timeInFileName = False):
                 "biasVals" : biases[w]
             }
             json.dump(layer, write_file, indent = 4,  cls=NumpyArrayEncoder)
-            if(w != len(weights)):
+            if(w < len(weights)-1):
                 write_file.write(',')
         write_file.write(']')
     print("Exported to file: ", file)
